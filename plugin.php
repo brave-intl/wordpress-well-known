@@ -121,7 +121,7 @@ class BraveWellKnownUriSettings {
   }
 
   public function add_plugin_page() {
-    add_options_page('Settings Admin', 'Brave Payments Verification', 'manage_options', $this->slug, array($this, 'create_admin_page'));
+    add_plugins_page('Settings Admin', 'Brave Payments Verification', 'manage_options', $this->slug, array($this, 'create_admin_page'));
   }
 
   public function admin_notices() {

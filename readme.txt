@@ -27,7 +27,7 @@ This is a good security practice.
 
 1. Upload this plugin to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the *Plugins* menu in WordPress.
-3. Go to *Settings > Brave Payments Verification*, enter the verification code you received, and click on `Save Changes`.
+3. Go to *Plugins > Brave Payments Verification*, enter the verification code you received, and click on `Save Changes`.
 4. Once you have received an e-mail that your site has been verified, deactivate this plugin.
     
 
