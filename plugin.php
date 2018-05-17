@@ -78,7 +78,7 @@ add_action('init', array('BraveWellKnownUriPlugin', 'add_rewrite_rules'));
 register_activation_hook(__FILE__, array('BraveWellKnownUriPlugin', 'activate_plugin'));
 register_deactivation_hook(__FILE__, 'flush_rewrite_rules');
 
-function well_known_uri($query) {
+function bpv_well_known_uri($query) {
   $options = get_option(BRAVE_WELL_KNOWN_URI_OPTION_NAME);
   if (is_array($options)) {
     foreach($options as $key => $value) {
@@ -105,7 +105,7 @@ function well_known_uri($query) {
 
   exit;
 }
-add_action('well-known-uri', 'well_known_uri');
+add_action('well-known-uri', 'bpv_well_known_uri');
 
 
 // (mostly) adapted from Example #2 in https://codex.wordpress.org/Creating_Options_Pages
