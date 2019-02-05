@@ -82,6 +82,7 @@ function well_known_uri($query) {
   $options = get_option(BRAVE_WELL_KNOWN_URI_OPTION_NAME);
   if (is_array($options)) {
     foreach($options as $key => $value) {
+      unset($value);
       if (strpos($key, BRAVE_WELL_KNOWN_URI_MATCHER_SUFFIX) !== 0) continue;
 
       $offset = substr($key, strlen(BRAVE_WELL_KNOWN_URI_MATCHER_SUFFIX) - strlen($key));
@@ -93,7 +94,9 @@ function well_known_uri($query) {
       header('Content-Type: ' . $type, TRUE);
 
       $contents = $options[BRAVE_WELL_KNOWN_URI_MATCHER_CONTENTS . $offset];
-      if (is_string($contents)) echo($contents);
+      if (is_string($contents)) {
+          echo esc_html($contents);
+      }
 
       exit;
     }
@@ -132,7 +135,7 @@ class BraveWellKnownUriSettings {
     $this->options = get_option(BRAVE_WELL_KNOWN_URI_OPTION_NAME);
 ?>
     <div class="wrap">
-      <img src="<?php echo plugins_url( 'brave_icon_shadow_300px.png', __FILE__ ); ?>" height="50px" /><h1>Brave Payments Verification</h1>
+        <img alt="Brave icon" src="<?php echo esc_url( plugins_url( 'brave_icon_shadow_300px.png', __FILE__ ) ); ?>" height="50px"/><h1>Brave Payments Verification</h1>
         <form method="post" action="options.php">
 <?php
     settings_fields($this->option_group);
@@ -146,8 +149,6 @@ class BraveWellKnownUriSettings {
 
   public function page_init() {
     $section_prefix = 'well_known_uri';
-    $suffix_title = 'Path: /.well-known/';
-    $type_title = 'Content-Type:';
     $contents_title = 'Verification code:';
 
     register_setting($this->option_group, BRAVE_WELL_KNOWN_URI_OPTION_NAME, array($this, 'sanitize_field'));
@@ -188,19 +189,20 @@ class BraveWellKnownUriSettings {
   public function field_callback($params) {
     $id = $params['id'];
     $type = $params['type'];
-    $value = '';
 
-    $prefix = '<input type="' . $type . '" id="' . $id . '" name="' . BRAVE_WELL_KNOWN_URI_OPTION_NAME . '[' . $id . ']" ';
     if ($type === 'text') {
-      $prefix .= 'size="80" value="';
-      if (isset($this->options[$id])) $value = esc_attr($this->options[$id]);
-      $suffix =  '" />';
+      echo '<input type="' . esc_attr($type) . '" id="' . esc_attr($id) . '" name="' . esc_attr(BRAVE_WELL_KNOWN_URI_OPTION_NAME) . '[' . esc_attr($id) . ']" size="80" value="';
+      if (isset($this->options[$id])){
+          echo esc_attr($this->options[$id]);
+      }
+      echo '" />';
     } elseif ($type === 'textarea') {
-      $prefix = '<textarea id="' . $id . '" name="' . BRAVE_WELL_KNOWN_URI_OPTION_NAME . '[' . $id . ']" rows="4" cols="80">';
-      if (isset($this->options[$id])) $value = esc_textarea($this->options[$id]);
-      $suffix = '</textarea>';
+      echo '<textarea id="' . esc_attr($id) . '" name="' . esc_attr(BRAVE_WELL_KNOWN_URI_OPTION_NAME) . '[' . esc_attr($id) . ']" rows="4" cols="80">';
+      if (isset($this->options[$id])) {
+        echo esc_textarea( $this->options[ $id ] );
+      }
+      echo '</textarea>';
     }
-    echo($prefix . $value . $suffix);
   }
 
   public function sanitize_field($input) {
@@ -265,7 +267,7 @@ class BraveWellKnownUriSettings {
       $validP = FALSE;
     }
     // skipping "media" types (audio, image, video)
-    if (   (!in_array($type, array('application', 'message', 'multipart', 'text')))
+    if ( (!in_array($type, array('application', 'message', 'multipart', 'text'),true))
         && ((strpos($type, 'x-') !== 0) || (!preg_match($token, $type)))) {
       add_settings_error($id, 'invalid_mime_type', __('Content-Type has invalid MIME type') . ' - ' . $type, 'error');
       $validP = FALSE;
