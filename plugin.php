@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Brave Payments Verification
+Plugin Name: Brave Rewards Verification
 Plugin URI: http://wordpress.org/extend/plugins/brave-payments-verification/
-Description: This plugin creates the /.well-known/brave-payments-verification.txt file. See Settings: Brave Payments Verification for details.
+Description: This plugin creates the /.well-known/brave-rewards-verification.txt file. See Settings: Brave Rewards Verification for details.
 Version: 1.0.4
 Author: Brave Software Intl
 Author URI: https://github.com/brave-intl/brave-payments-verification/
@@ -121,7 +121,7 @@ class BraveWellKnownUriSettings {
   }
 
   public function add_plugin_page() {
-    add_options_page('Settings Admin', 'Brave Payments Verification', 'manage_options', $this->slug, array($this, 'create_admin_page'));
+    add_options_page('Settings Admin', 'Brave Rewards Verification', 'manage_options', $this->slug, array($this, 'create_admin_page'));
   }
 
   public function admin_notices() {
@@ -132,7 +132,7 @@ class BraveWellKnownUriSettings {
     $this->options = get_option(BRAVE_WELL_KNOWN_URI_OPTION_NAME);
 ?>
     <div class="wrap">
-      <img src="<?php echo plugins_url( 'brave_icon_shadow_300px.png', __FILE__ ); ?>" height="50px" /><h1>Brave Payments Verification</h1>
+      <img src="<?php echo plugins_url( 'brave_icon_shadow_300px.png', __FILE__ ); ?>" height="50px" /><h1>Brave Rewards Verification</h1>
         <form method="post" action="options.php">
 <?php
     settings_fields($this->option_group);
@@ -221,7 +221,7 @@ class BraveWellKnownUriSettings {
     $valid = array();
 
     if (empty($input[$id])) {
-      $input[$id] = 'brave-payments-verification.txt';
+      $input[$id] = 'brave-rewards-verification.txt';
       $valid[$id] = $input[$id];
 
       return $valid;
