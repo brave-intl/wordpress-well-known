@@ -1,4 +1,4 @@
-=== brave-payments-verification ===
+=== Brave Payments Verification ===
 Contributors: pfefferle, mrose17
 Tags: well-known, well-known-uris, discovery, brave
 Requires at least: 3.5.1
