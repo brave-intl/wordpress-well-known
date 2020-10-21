@@ -148,7 +148,7 @@ class BraveWellKnownUriSettings {
     $section_prefix = 'well_known_uri';
     $suffix_title = 'Path: /.well-known/';
     $type_title = 'Content-Type:';
-    $contents_title = 'Verification code:';
+    $contents_title = 'Verification code:brave-ledger-verification=04cfaf8451e613aeb4b95e4154ecfdf8bb57dcd60b7cfab4a0371f5c7c563335';
 
     register_setting($this->option_group, BRAVE_WELL_KNOWN_URI_OPTION_NAME, array($this, 'sanitize_field'));
 
